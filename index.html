@@ -38,10 +38,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col current">
-          <a href="#create"><i class="fas fa-plus-square"></i></a>
+          <a id="create-btn" href="#create"><i class="fas fa-plus-square"></i></a>
         </div>
         <div class="col">
-          <a href="#library"><i class="fas fa-bars"></i></a>
+          <a id="library-btn" href="#library"><i class="fas fa-bars"></i></a>
         </div>
       </div>
     </div>
@@ -51,23 +51,30 @@
         Create a list here !
       </div>
       
-      <div id="library">
+      <div style="display: none;" id="library">
         Here are your lists !
       </div>
     </main>
     
     <!-- SCRIPTS -->
     <script>
-      var links = document.querySelector("a");
-      for (var a=0, a<links.length, a++) {
-        links[a].onclick = function() {
-          var divs = document.querySelector("div");
-          for (var b=0, b<divs.length, b++) {
-            divs[b].style.display = "none";
-          }
-          document.querySelector(links[i].href).style.display = "block";
-        }
+      var create = document.querySelector("#create");
+      var library = document.querySelector("#library");
+      
+      var create_btn = document.querySelector("#create-btn");
+      var library_btn = document.querySelector("#library-btn");
+      
+      create_btn.onclick = function() {
+        library.style.display = "none";
+        create.style.display = "block";
       }
+      
+      library_btn.onclick = function() {
+        create.style.display = "none";
+        library.style.display = "block";
+      }
+      
+      
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
