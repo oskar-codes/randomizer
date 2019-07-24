@@ -68,10 +68,10 @@
     </header>
     <div class="container-fluid">
       <div class="row">
-        <div class="col current">
+        <div id="create-tab" class="col current">
           <a id="create-btn" href="#create"><i class="fas fa-plus-square"></i></a>
         </div>
-        <div class="col">
+        <div id="library-tab" class="col">
           <a id="library-btn" href="#library"><i class="fas fa-bars"></i></a>
         </div>
       </div>
@@ -107,14 +107,21 @@
       var create_btn = document.querySelector("#create-btn");
       var library_btn = document.querySelector("#library-btn");
       
+      var create_tab = document.querySelector("#create-tab");
+      var library_tab = document.querySelector("#library-tab");
+      
       create_btn.onclick = function() {
         library.style.display = "none";
         create.style.display = "block";
+        create_tab.classList.add("current");
+        library_tab.classList.remove("current");
       }
       
       library_btn.onclick = function() {
         create.style.display = "none";
         library.style.display = "block";
+        library_tab.classList.add("current");
+        create_tab.classList.remove("current");
       }
       
       const list_items = document.getElementById("list-items-container");
