@@ -83,8 +83,12 @@
         <div id="create-container">
           <input placeholder="Enter the list's name"></input>
           <div id="list-items-container">
-            <input placeholder="Enter item name"></input>
-            <br>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button">Remove item</button>
+              </div>
+            </div>
             <button class="btn btn-primary">Add item</button>
           </div>
         </div>
