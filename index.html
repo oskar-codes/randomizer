@@ -33,6 +33,15 @@
         margin: 8px;
         margin-top: 14px;
       }
+      #create-container {
+        background-color: #ff2020;
+        border-radius: 4px;
+      }
+      #list-items-container {
+        background-color: #fff;
+        border-radius: 4px;
+        margin: 3px;
+      }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
@@ -58,6 +67,11 @@
     <main>
       <div id="create">
         <h3>New list</h3>
+        <div id="create-container"></div>
+        <input placeholder="Enter the list's name"></input>
+        <div id="list-items-container">
+          
+        </div>
       </div>
       
       <div style="display: none;" id="library">
