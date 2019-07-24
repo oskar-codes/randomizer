@@ -135,8 +135,10 @@
       }
       
       function removeItem(elem) {
-        var elem2 = elem.parentNode.parentNode
-        elem.parentNode.parentNode.parentNode.removeChild(elem2);
+        if (list_items.childElementCount > 1) {
+          var elem2 = elem.parentNode.parentNode
+          elem.parentNode.parentNode.parentNode.removeChild(elem2);
+        }
       }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
