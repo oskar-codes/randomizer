@@ -60,9 +60,7 @@
         font-size: 40px;
       }
       .create-actions {
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
+        margin-left: 50%;
       }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -90,16 +88,16 @@
       <div id="create">
         <h3>New list</h3>
         <div id="create-container">
-          <input class="form-control" placeholder="Enter the list's name"></input>
+          <input id="list-name" class="form-control" placeholder="Enter the list's name"></input>
           <div id="list-items-container">
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
               </div>
             </div>
             <div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
               </div>
@@ -143,13 +141,8 @@
       }
       
       const list_items = document.getElementById("list-items-container");
+      
       function addItem() {
-        /*list_items.innerHTML += `<div class="input-group mb-3">
-              <input type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
-              <div class="input-group-append">
-                <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
-              </div>
-            </div>`*/
         var cloned = document.getElementsByClassName("mb-3")[0].cloneNode(true);
         cloned.children[0].value = "";
         list_items.appendChild(cloned);
@@ -159,6 +152,19 @@
         if (list_items.childElementCount > 2) {
           var elem2 = elem.parentNode.parentNode
           elem.parentNode.parentNode.parentNode.removeChild(elem2);
+        }
+      }
+      
+      function createList() {
+        var name = document.getElementById("list-name").value;
+        var items = $('input[name="item"]').map(function () {
+          return this.value;
+        }).get();
+        
+        try {
+         localStorage.setItem(name, items);
+        } catch (e) {
+         alert("Exceeded Storage Quota!");
         }
       }
     </script>
