@@ -36,7 +36,7 @@
         margin: 8px;
         margin-top: 14px;
       }
-      #create-container {
+      #create-container, #lists-container {
         background-color: #eee;
         border-radius: 10px;
         position: relative;
@@ -51,7 +51,7 @@
         margin: 3px;
       }
       @media only screen and (orientation: landscape) {
-        #create-container {
+        #create-container, #lists-container {
           width: 65vw;
         }
       }
@@ -112,6 +112,9 @@
       
       <div style="display: none;" id="library">
         <h3>Your lists</h3>
+        <div id="lists-container">
+          
+        </div>
       </div>
     </main>
     
@@ -138,6 +141,7 @@
         library.style.display = "block";
         library_tab.classList.add("current");
         create_tab.classList.remove("current");
+        updateLists();
       }
       
       const list_items = document.getElementById("list-items-container");
@@ -165,6 +169,21 @@
          localStorage.setItem(name, items);
         } catch (e) {
          alert("Exceeded Storage Quota!");
+        }
+      }
+      
+      function updateLists() {
+        var lists_container = document.querySelector("#lists-container");
+        lists_container.innerHTML = "";
+        for (var a in localStorage) {
+          if (localStorage.hasOwnProperty(a)) {
+            lists_container.innerHTML += `
+              <div class="list">
+                <h4>`+ a +`</h4>
+                <p>`+ localStorage[a] +`<p>
+              </div>
+            `
+          }
         }
       }
     </script>
