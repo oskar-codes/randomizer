@@ -148,7 +148,7 @@
                 <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
               </div>
             </div>`*/
-        var cloned = document.getElementsByClassName("mb-3")[0].cloneNode();
+        var cloned = document.getElementsByClassName("mb-3")[0].cloneNode(true);
         list_items.appendChild(cloned);
       }
       
