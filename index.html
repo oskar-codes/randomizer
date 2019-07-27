@@ -142,12 +142,15 @@
       
       const list_items = document.getElementById("list-items-container");
       function addItem() {
-        list_items.innerHTML += `<div class="input-group mb-3">
+        /*list_items.innerHTML += `<div class="input-group mb-3">
               <input type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
               <div class="input-group-append">
                 <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
               </div>
-            </div>`
+            </div>`*/
+        var cloned = document.getElementsByClassName("mb-3")[0].cloneNode();
+        cloned.value = '';
+        list_items.appendChild(cloned);
       }
       
       function removeItem(elem) {
