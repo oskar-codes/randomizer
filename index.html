@@ -139,7 +139,10 @@
       var create_tab = document.querySelector("#create-tab");
       var library_tab = document.querySelector("#library-tab");
       
-      window.onhashchange = function() {
+      window.onhashchange = updateTab();
+      window.onload = updateTab();
+        
+      function updateTab() {
         var url = window.location.href;
         if (url.includes("#create")) {
           openCreate();  
