@@ -262,7 +262,7 @@
         listItems = listItems.split(", ");
         
         var selected = listItems[Math.floor(Math.random() * listItems.length)];
-        var shuffled = shuffle(listItems);
+        var shuffled = shuffle(listItems).toString();
         
         globalModalHeader.innerHTML = "Results for <b>" + listName + "</b>";
         globalModalBody.innerHTML = `
@@ -270,7 +270,7 @@
           <p>`+ selected +`</p>
           <br>
           <h6>Shufled list:</h6>
-          <p>`+ shuffled +`</p>
+          <p>`+ shuffled.replace(/,/g,", ") +`</p>
         `;
         
         $("#globalModal").modal();
