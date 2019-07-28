@@ -202,8 +202,8 @@
         }
       }
       
-      function removeList(list) {
-        localStorage.removeItem(list);
+      function removeList(listToRemove) {
+        localStorage.removeItem(listToRemove);
         updateLists();
       }
       
@@ -215,10 +215,10 @@
             lists_container.innerHTML += `
               <div class="list">
                 <h4>`+ a.replace("randomizer:","") +`</h4>
-                <p>`+ localStorage[a].replace(",",", ") +`</p>
+                <p>`+ localStorage[a].replace(/,/g,", ") +`</p>
                 <button class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
                 <button class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
-                <button onclick="removeList(`+ a +`)" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                <button onclick="removeList(`+ a +`);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
               </div>
             `
           }
