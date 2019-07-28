@@ -190,24 +190,32 @@
         var items = $('input[name="item"]').map(function () {
           return this.value;
         }).get();
+        var isOk = true;
+        for (var i=0,i<items.length,i++) {
+          if (isNullOrEmpty(items[i])) {
+            isOk = false;
+          }
+        }
         
-        try {
-         localStorage.setItem("randomizer:" + name.value, items);
-         list_items.innerHTML = `<div class="input-group mb-3">
-            <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+        if (!isNullOrEmpty(name.value) && isOk) {
+          try {
+           localStorage.setItem("randomizer:" + name.value, items);
+           list_items.innerHTML = `<div class="input-group mb-3">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+              </div>
             </div>
-          </div>
-          <div class="input-group mb-3">
-            <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
-            </div>
-          </div>`
-         name.value = "";
-        } catch (e) {
-          alert("An error occured: " + e);
+            <div class="input-group mb-3">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+              </div>
+            </div>`
+           name.value = "";
+          } catch (e) {
+            alert("An error occured: " + e);
+          }
         }
       }
       
@@ -238,6 +246,10 @@
             `
           }
         }
+      }
+      
+      function isNullOrEmpty(str) {
+        return !str || !str.trim();
       }
     </script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
