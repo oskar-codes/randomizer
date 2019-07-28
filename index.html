@@ -203,8 +203,13 @@
       }
       
       function removeList(listToRemove) {
-        localStorage.removeItem(listToRemove);
+        try {
+          localStorage.removeItem(listToRemove);
+        } catch(e) {
+          alert("An error occured : " + e);
+        }
         updateLists();
+        alert("test");
       }
       
       function updateLists() {
@@ -218,7 +223,7 @@
                 <p>`+ localStorage[a].replace(/,/g,", ") +`</p>
                 <button class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
                 <button class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
-                <button onclick="removeList("test1");" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                <button onclick="removeList(`+ a +`);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
               </div>
             `
           }
