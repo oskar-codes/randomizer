@@ -276,6 +276,7 @@
       }
       
       function updateLists() {
+        var createdOne = false;
         var lists_container = document.querySelector("#lists-container");
         lists_container.innerHTML = "";
         for (var a in localStorage) {
@@ -287,9 +288,12 @@
                 <button class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
                 <button onclick="playList(this);" class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
                 <button onclick="removeList(this);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
-              </div>
-            `
+              </div>`;
+            createdOne = true;
           }
+        }
+        if (!createdOne) {
+          lists_container += "<p>No lists</p>"
         }
       }
       
