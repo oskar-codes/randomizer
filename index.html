@@ -270,13 +270,12 @@
           <h6>Selected item:</h6>
           <p>`+ selected +`</p>
           <br>
-          <h6>Shufled list:</h6>
-          <p>`+ shuffled.replace(/,/g,", ") +`</p>
-        `;
+          <h6>Shuffled list:</h6>
+          <p>`+ shuffled.replace(/,/g,", ") +`</p>`;
         
         $("#globalModal").modal();
       }
-      
+
       function updateLists() {
         var createdOne = false;
         var lists_container = document.querySelector("#lists-container");
