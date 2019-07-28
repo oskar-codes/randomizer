@@ -258,10 +258,20 @@
       
       function playList(element) {
         var listName = element.parentNode.children[0].innerHTML;
-        listName = "randomizer:" + listName;
+        var listItems = element.parentNode.children[1].innerHTML;
+        listItems = listItems.split(", ");
+        
+        var selected = listItems[Math.floor(Math.random() * listItems.length)];
+        var shuffled = shuffle(listItems);
         
         globalModalHeader.innerHTML = "Results";
-        globalModalBody.innerHTML = "test";
+        globalModalBody.innerHTML = `
+          <h6>Selected item:</h6>
+          <p>`+ selected +`</p>
+          <br>
+          <h6>Shufled list:</h6>
+          <p>`+ shuffled.replace(/,/g,", ") +`</p>
+        `;
         
         $("#globalModal").modal();
       }
