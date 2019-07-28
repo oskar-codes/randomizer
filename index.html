@@ -89,10 +89,10 @@
     <div class="container-fluid">
       <div class="row">
         <div onclick="openCreate();" id="create-tab" class="col current">
-          <a id="create-btn" href="#create"><i class="tab-icon fas fa-plus-square"></i></a>
+          <a href="#create"><i class="tab-icon fas fa-plus-square"></i></a>
         </div>
         <div onclick="openLibrary();" id="library-tab" class="col">
-          <a id="library-btn" href="#library"><i class="tab-icon fas fa-bars"></i></a>
+          <a href="#library"><i class="tab-icon fas fa-bars"></i></a>
         </div>
       </div>
     </div>
@@ -136,13 +136,19 @@
       var create = document.querySelector("#create");
       var library = document.querySelector("#library");
       
-      var create_btn = document.querySelector("#create-btn");
-      var library_btn = document.querySelector("#library-btn");
-      
       var create_tab = document.querySelector("#create-tab");
       var library_tab = document.querySelector("#library-tab");
       
-      create_btn.onclick = openCreate();
+      window.onhashchange = function() {
+        var url = window.location.href;
+        if (url.includes("#create")) {
+          openCreate();  
+        } else if (url.includes("#library")) {
+          openLibrary();
+        } else {
+          openCreate();
+        }
+      }
       
       function openCreate() {
         library.style.display = "none";
@@ -150,8 +156,6 @@
         create_tab.classList.add("current");
         library_tab.classList.remove("current");
       }
-      
-      library_btn.onclick = openLibrary();
       
       function openLibrary() {
         create.style.display = "none";
@@ -198,21 +202,19 @@
           </div>`
          name.value = "";
         } catch (e) {
-         alert(e);
+          alert("An error occured: " + e);
         }
       }
       
       function removeList(element) {
-        alert("removing...");
         var listName = element.parentNode.children[0].innerHTML;
         listName = "randomizer:" + listName;
         try {
           localStorage.removeItem(listName);
         } catch(e) {
-          alert("An error occured : " + e);
+          alert("An error occured: " + e);
         }
         updateLists();
-        alert("done");
       }
       
       function updateLists() {
