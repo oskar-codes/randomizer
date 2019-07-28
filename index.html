@@ -92,7 +92,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 id="globalModalHeader" class="modal-title" id="exampleModalLabel">Modal title</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -160,6 +160,9 @@
       
       var create_tab = document.querySelector("#create-tab");
       var library_tab = document.querySelector("#library-tab");
+      
+      var globalModalHeader = document.querySelector("#globalModalHeader");
+      var globalModalBody = document.querySelector("#globalModalBody");
       
       window.onhashchange = updateTab();
       window.onload = updateTab();
@@ -256,8 +259,11 @@
       function playList(element) {
         var listName = element.parentNode.children[0].innerHTML;
         listName = "randomizer:" + listName;
+        
+        globalModalHeader.innerHTML = "Results";
+        globalModalBody.innerHTML = "test";
+        
         $("#globalModal").modal();
-        $("#globalModalBody").innerHTML = "test";
       }
       
       function updateLists() {
