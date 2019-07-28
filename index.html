@@ -16,7 +16,7 @@
         font-size: 50px;
         font-weight: bold;
       }
-      i {
+      .tab-icon {
         font-size: 64px;
         position: relative;
         left: 50%;
@@ -69,6 +69,12 @@
         border-radius: 10px;
         background-color: #fff;
       }
+      .list-btn {
+        font-size: 10px;
+        width: 80px;
+        height: 20px;
+        border-radius: 7px;
+      }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
@@ -83,10 +89,10 @@
     <div class="container-fluid">
       <div class="row">
         <div onclick="openCreate();" id="create-tab" class="col current">
-          <a id="create-btn" href="#create"><i class="fas fa-plus-square"></i></a>
+          <a id="create-btn" href="#create"><i class="tab-icon fas fa-plus-square"></i></a>
         </div>
         <div onclick="openLibrary();" id="library-tab" class="col">
-          <a id="library-btn" href="#library"><i class="fas fa-bars"></i></a>
+          <a id="library-btn" href="#library"><i class="tab-icon fas fa-bars"></i></a>
         </div>
       </div>
     </div>
@@ -205,9 +211,9 @@
               <div class="list">
                 <h4>`+ a.replace("randomizer:","") +`</h4>
                 <p>`+ localStorage[a].replace(",",", ") +`</p>
-                <button class="btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
-                <button class="btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
-                <button class="btn btn-error btn-sm"><i class="fas fa-trash-alt"></i></button>
+                <button class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
+                <button class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
+                <button class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
               </div>
             `
           }
