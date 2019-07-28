@@ -202,22 +202,23 @@
         }
       }
       
-      function removeList(listToRemove) {
-        alert("test1");
+      function removeList(element) {
+        alert("removing...");
+        var listName = element.parentNode.children[0].innerHTML;
+        listName = "randomizer:" + listName;
         try {
-          localStorage.removeItem(listToRemove);
+          localStorage.removeItem(listName);
         } catch(e) {
           alert("An error occured : " + e);
         }
         updateLists();
-        alert("test");
+        alert("done");
       }
       
       function updateLists() {
         var lists_container = document.querySelector("#lists-container");
         lists_container.innerHTML = "";
         for (var a in localStorage) {
-          var listName = a
           if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
             lists_container.innerHTML += `
               <div class="list">
@@ -225,7 +226,7 @@
                 <p>`+ localStorage[a].replace(/,/g,", ") +`</p>
                 <button class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
                 <button class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
-                <button onclick="removeList(`+ listName +`);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                <button onclick="removeList(this);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
               </div>
             `
           }
