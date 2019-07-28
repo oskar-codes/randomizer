@@ -177,7 +177,7 @@
         }).get();
         
         try {
-         localStorage.setItem(name.value, items);
+         localStorage.setItem("randomizer:" + name.value, items);
          list_items.innerHTML = `<div class="input-group mb-3">
             <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
             <div class="input-group-append">
@@ -200,11 +200,11 @@
         var lists_container = document.querySelector("#lists-container");
         lists_container.innerHTML = "";
         for (var a in localStorage) {
-          if (localStorage.hasOwnProperty(a)) {
+          if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
             lists_container.innerHTML += `
               <div class="list">
-                <h4>`+ a +`</h4>
-                <p>`+ localStorage[a] +`</p>
+                <h4>`+ a.replace("randomizer:","") +`</h4>
+                <p>`+ localStorage[a].replace(",",", ") +`</p>
               </div>
             `
           }
