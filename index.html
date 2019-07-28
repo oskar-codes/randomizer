@@ -190,8 +190,9 @@
         var items = $('input[name="item"]').map(function () {
           return this.value;
         }).get();
+        
         var isOk = true;
-        for (var i=0,i<items.length,i++) {
+        for (var i=0; i<items.length; i++) {
           if (isNullOrEmpty(items[i])) {
             isOk = false;
           }
