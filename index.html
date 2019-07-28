@@ -202,6 +202,11 @@
         }
       }
       
+      function removeList(list) {
+        localStorage.removeItem(list);
+        updateLists();
+      }
+      
       function updateLists() {
         var lists_container = document.querySelector("#lists-container");
         lists_container.innerHTML = "";
@@ -213,7 +218,7 @@
                 <p>`+ localStorage[a].replace(",",", ") +`</p>
                 <button class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
                 <button class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
-                <button class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+                <button onclick="removeList(`+ a +`)" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
               </div>
             `
           }
