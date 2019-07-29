@@ -180,6 +180,7 @@
       }
       
       function openCreate() {
+        updateLists();
         window.location.href = "https://oskar-codes.github.io/randomizer/#create";
         library.style.display = "none";
         create.style.display = "block";
@@ -281,16 +282,26 @@
         var listName = element.parentNode.children[0].innerHTML;
         var listItems = element.parentNode.children[1].innerHTML;
         listContainer.innerHTML = `
-          <input value="`+ listName +`" placeholder="Enter list name"></input>
-          <input value="`+ listItems.replace(/, /g," ") +`" placeholder="Enter list items separated by a space"></input>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">List name</span>
+            </div>
+            <input value="`+ listName +`" type="text" class="form-control" aria-label="List name" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">List items</span>
+            </div>
+            <input value="`+ listItems.replace(/, /g," ") +`" type="text" class="form-control" aria-label="List items" aria-describedby="basic-addon1">
+          </div>
           <button onclick="saveEditing(this, `+ listName +`);" class="list-btn btn btn-success btn-sm"><i class="fas fa-save"></i></button>
           <button onclick="updateLists();" class="list-btn btn btn-danger btn-sm"><i class="fas fa-cross"></i></button>
         `;
       }
       
       function saveEditing(element, oldList) {
-        var listName = element.parentNode.children[0].value;
-        var listItems = element.parentNode.children[1].value;
+        var listName = element.parentNode.children[0].children[1].value;
+        var listItems = element.parentNode.children[1].children[1].value;
         localStorage.removeItem("randomizer:" + oldList);
         localStorage.setItem("randomizer:" + listName, listItems.split(" "));
         updateLists();
