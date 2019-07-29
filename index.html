@@ -281,8 +281,8 @@
         var listName = element.parentNode.children[0].innerHTML;
         var listItems = element.parentNode.children[1].innerHTML;
         listContainer.innerHTML = `
-          <input placeholder="Enter list name">`+ listName +`</h4>
-          <p>`+ listItems.replace(/, /g," ") +`</p>
+          <input value="`+ listName +`" placeholder="Enter list name"></input>
+          <textarea value="`+ listItems.replace(/, /g," ") +`" placeholder="Enter list items separated by a space"></input>
           <button onclick="saveEditing(this, `+ listName +`);" class="list-btn btn btn-success btn-sm"><i class="fas fa-save"></i></button>
           <button onclick="updateLists();" class="list-btn btn btn-danger btn-sm"><i class="fas fa-cross"></i></button>
         `;
