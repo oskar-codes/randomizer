@@ -275,6 +275,26 @@
         
         $("#globalModal").modal();
       }
+      
+      function editList(element) {
+        var listContainer = element.parentNode;
+        var listName = element.parentNode.children[0].innerHTML;
+        var listItems = element.parentNode.children[1].innerHTML;
+        listContainer.innerHTML = `
+          <input placeholder="Enter list name">`+ listName +`</h4>
+          <p>`+ listItems.replace(/, /g," ") +`</p>
+          <button onclick="saveEditing(this, `+ listName +`);" class="list-btn btn btn-success btn-sm"><i class="fas fa-save"></i></button>
+          <button onclick="updateLists();" class="list-btn btn btn-danger btn-sm"><i class="fas fa-cross"></i></button>
+        `;
+      }
+      
+      function saveEditing(element, oldList) {
+        var listName = element.parentNode.children[0].value;
+        var listItems = element.parentNode.children[1].value;
+        localStorage.removeItem("randomizer:" + oldList);
+        localStorage.setItem("randomizer:" + listName, listItems.split(" "));
+        updateLists();
+      }
 
       function updateLists() {
         var createdOne = false;
@@ -286,7 +306,7 @@
               <div class="list">
                 <h4>`+ a.replace("randomizer:","") +`</h4>
                 <p>`+ localStorage[a].replace(/,/g,", ") +`</p>
-                <button class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
+                <button onclick="editList(this);" class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
                 <button onclick="playList(this);" class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
                 <button onclick="removeList(this);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
               </div>`;
