@@ -173,6 +173,7 @@
       body.onload = updateTab();
         
       function updateTab() {
+        updateLists();
         var url = window.location.href;
         if (url.includes("#create")) {
           openCreate();  
@@ -181,7 +182,6 @@
         } else {
           openCreate();
         }
-        updateLists();
       }
       
       function openCreate() {
