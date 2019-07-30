@@ -306,7 +306,9 @@
         localStorage.setItem("randomizer:" + listName, listItems.split("/"));
         updateLists();
       }
-
+      
+      var converter = new showdown.Converter({noHeaderId: 'true'});
+      
       function updateLists() {
         var createdOne = false;
         var lists_container = document.querySelector("#lists-container");
@@ -314,12 +316,11 @@
         for (var a in localStorage) {
           if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
             
-            var converter = new showdown.Converter({noHeaderId: 'true'});
-            var name = a.replace("randomizer:","");
-            var nameHtml = converter.makeHtml(name);
+            var rawName = a.replace("randomizer:","");
+            var nameHtml = converter.makeHtml(rawName);
             
-            var items = localStorage[a].replace(/,/g,", ");
-            var itemsHtml = converter.makeHtml(items);
+            var rawItems = localStorage[a].replace(/,/g,", ");
+            var itemsHtml = converter.makeHtml(rawItems);
             
             lists_container.innerHTML += `
               <div class="list">
