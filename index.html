@@ -218,6 +218,10 @@
           return this.value;
         }).get();
         
+        var converter = new showdown.Converter({noHeaderId: 'true'});
+        var text = name.value;
+        var html = converter.makeHtml(text);
+        
         var isOk = true;
         for (var i=0; i<items.length; i++) {
           if (isNullOrEmpty(items[i])) {
