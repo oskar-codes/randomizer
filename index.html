@@ -271,7 +271,7 @@
         var selected = newListItems[Math.floor(Math.random() * newListItems.length)];
         var shuffled = shuffle(newListItems).toString();
         
-        var converter = new showdown.Converter({noHeaderId: 'true'});
+        var converter = new showdown.Converter({noHeaderId: 'true', simplifiedAutoLink: 'true', strikethrough: 'true'});
         
         var nameHtml = converter.makeHtml(listName);
         
@@ -320,7 +320,7 @@
       }
       
       function updateLists() {
-        var converter = new showdown.Converter({noHeaderId: 'true'});
+        var converter = new showdown.Converter({noHeaderId: 'true', simplifiedAutoLink: 'true', strikethrough: 'true'});
         var createdOne = false;
         var lists_container = document.querySelector("#lists-container");
         lists_container.innerHTML = "";
