@@ -261,18 +261,27 @@
       }
       
       function playList(listName, listItems) {
-        listItems = listItems.split(", ");
+        var newListItems = listItems.split(", ");
         
-        var selected = listItems[Math.floor(Math.random() * listItems.length)];
-        var shuffled = shuffle(listItems).toString();
+        var selected = newListItems[Math.floor(Math.random() * newListItems.length)];
+        var shuffled = shuffle(newListItems).toString();
         
-        globalModalHeader.innerHTML = "Results for <b>" + listName + "</b>";
+        var converter = new showdown.Converter({noHeaderId: 'true'});
+        
+        var nameHtml = converter.makeHtml(listName);
+        
+        var selectedHtml = converter.makeHtml(selected);
+        
+        var shuffledHtml = converter.makeHtml(shuffled);
+        
+        
+        globalModalHeader.innerHTML = "Results for <b>" + nameHtml + "</b>";
         globalModalBody.innerHTML = `
           <h6>Selected item:</h6>
-          <p>`+ selected +`</p>
+          <p>`+ selectedHtml +`</p>
           <br>
           <h6>Shuffled list:</h6>
-          <p>`+ shuffled.replace(/,/g,", ") +`</p>`;
+          <p>`+ shuffledHtml.replace(/,/g,", ") +`</p>`;
         
         $("#globalModal").modal();
       }
