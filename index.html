@@ -151,6 +151,7 @@
         <div id="lists-container">
           
         </div>
+        <button onclick="deleteAll();" class="btn btn-danger">Delete all</button>
       </div>
     </main>
     
@@ -307,9 +308,8 @@
         updateLists();
       }
       
-      var converter = new showdown.Converter({noHeaderId: 'true'});
-      
       function updateLists() {
+        var converter = new showdown.Converter({noHeaderId: 'true'});
         var createdOne = false;
         var lists_container = document.querySelector("#lists-container");
         lists_container.innerHTML = "";
@@ -335,6 +335,14 @@
         }
         if (!createdOne) {
           lists_container.innerHTML += "<p>No lists</p>"
+        }
+      }
+      
+      function deleteAll() {
+        for (var a in localStorage) {
+          if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
+            localStorage.removeItem(a);
+          }
         }
       }
       
