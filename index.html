@@ -231,7 +231,7 @@
         
         if (!isNullOrEmpty(name.value) && isOk) {
           try {
-           localStorage.setItem("randomizer:" + name.value, items);
+           localStorage.setItem("randomizer:" + html, items);
            list_items.innerHTML = `<div class="input-group mb-3">
               <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
               <div class="input-group-append">
