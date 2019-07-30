@@ -168,6 +168,7 @@
       
       window.onhashchange = updateTab();
       window.onload = updateTab();
+      body.onload = updateTab();
         
       function updateTab() {
         var url = window.location.href;
@@ -178,6 +179,7 @@
         } else {
           openCreate();
         }
+        updateLists();
       }
       
       function openCreate() {
