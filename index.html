@@ -166,6 +166,8 @@
       var globalModalHeader = document.querySelector("#globalModalHeader");
       var globalModalBody = document.querySelector("#globalModalBody");
       
+      var list_items = document.getElementById("list-items-container");
+      
       window.onhashchange = updateTab();
       window.onload = updateTab();
       body.onload = updateTab();
@@ -199,8 +201,6 @@
         create_tab.classList.remove("current");
         updateLists();
       }
-      
-      const list_items = document.getElementById("list-items-container");
       
       function addItem() {
         var cloned = document.getElementsByClassName("mb-3")[0].cloneNode(true);
