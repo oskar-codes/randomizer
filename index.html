@@ -218,10 +218,6 @@
           return this.value;
         }).get();
         
-        var converter = new showdown.Converter({noHeaderId: 'true'});
-        var text = name.value;
-        var html = converter.makeHtml(text);
-        
         var isOk = true;
         for (var i=0; i<items.length; i++) {
           if (isNullOrEmpty(items[i])) {
@@ -231,7 +227,7 @@
         
         if (!isNullOrEmpty(name.value) && isOk) {
           try {
-           localStorage.setItem("randomizer:" + html, items);
+           localStorage.setItem("randomizer:" + name.value, items);
            list_items.innerHTML = `<div class="input-group mb-3">
               <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
               <div class="input-group-append">
@@ -317,10 +313,18 @@
         lists_container.innerHTML = "";
         for (var a in localStorage) {
           if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
+            
+            var converter = new showdown.Converter({noHeaderId: 'true'});
+            var name = a.replace("randomizer:","");
+            var nameHtml = converter.makeHtml(name);
+            
+            var items = localStorage[a].replace(/,/g,", ");
+            var itemsHtml = converter.makeHtml(items);
+            
             lists_container.innerHTML += `
               <div class="list">
-                <h4>`+ a.replace("randomizer:","") +`</h4>
-                <p>`+ localStorage[a].replace(/,/g,", ") +`</p>
+                <h4>`+ nameHtml +`</h4>
+                <p>`+ itemsHtml +`</p>
                 <button onclick="editList(this);" class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
                 <button onclick="playList(this);" class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
                 <button onclick="removeList(this);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
