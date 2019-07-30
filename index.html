@@ -261,9 +261,9 @@
         updateLists();
       }
       
-      function playList(element) {
-        var listName = element.parentNode.children[0].innerHTML;
-        var listItems = element.parentNode.children[1].innerHTML;
+      function playList(listName, listItems) {
+        /* var listName = element.parentNode.children[0].innerHTML;
+        var listItems = element.parentNode.children[1].innerHTML; */
         listItems = listItems.split(", ");
         
         var selected = listItems[Math.floor(Math.random() * listItems.length)];
@@ -329,7 +329,7 @@
                 <h4>`+ nameHtml +`</h4>
                 <p>`+ itemsHtml +`</p>
                 <button onclick="editList(this);" class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
-                <button onclick="playList(this);" class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
+                <button onclick="playList('`+ rawName, +`','`+ rawItems +`');" class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
                 <button onclick="removeList(this);" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
               </div>`;
             createdOne = true;
