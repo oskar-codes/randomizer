@@ -77,6 +77,11 @@
         height: 30px;
         border-radius: 15px;
       }
+      .delete-all {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
     </style>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     
@@ -151,7 +156,7 @@
         <div id="lists-container">
           
         </div>
-        <button onclick="deleteAll();" class="btn btn-danger">Delete all</button>
+        <button onclick="deleteAll();" class="delete-all btn btn-danger">Delete all</button>
       </div>
     </main>
     
@@ -345,10 +350,13 @@
       }
       
       function deleteAll() {
-        for (var a in localStorage) {
-          if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
-            localStorage.removeItem(a);
+        if (confirm("Delete all lists ?")) {
+          for (var a in localStorage) {
+            if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
+              localStorage.removeItem(a);
+            }
           }
+          updateLists();
         }
       }
       
