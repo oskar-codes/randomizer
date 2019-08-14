@@ -233,20 +233,20 @@
           }
         }
         
-        var isNotInUse = true;
+        var isInUse = false;
         for (var a in localStorage) {
           if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
             if ("ramdomizer:" + name.value == a) {
-              var isNotInUse = false;
+              isInUse = true;
             }
           }
         }
         
-        if (!isNotInUse) {
+        if (isInUse) {
           alert("The list name " + name.value + " is already in use.");
         }
         
-        if (!isNullOrEmpty(name.value) && isOk && isNotInUse) {
+        if (!isNullOrEmpty(name.value) && isOk && !isInUse) {
           try {
            localStorage.setItem("randomizer:" + name.value, items);
            list_items.innerHTML = `<div class="input-group mb-3">
@@ -262,6 +262,7 @@
               </div>
             </div>`
            name.value = "";
+           alert("List successfully created!");
           } catch (e) {
             alert("An error occured: " + e);
           }
