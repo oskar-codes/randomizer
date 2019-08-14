@@ -267,13 +267,15 @@
       }
       
       function removeList(listName) {
-        listName = "randomizer:" + listName;
-        try {
-          localStorage.removeItem(listName);
-        } catch(e) {
-          alert("An error occured: " + e);
+        if (confirm("Are you sure you want to delete the list " + listName + "?")) {
+          listName = "randomizer:" + listName;
+          try {
+            localStorage.removeItem(listName);
+          } catch(e) {
+            alert("An error occured: " + e);
+          }
+          updateLists();
         }
-        updateLists();
       }
       
       function playList(listName, listItems) {
