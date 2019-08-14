@@ -236,15 +236,11 @@
         var isInUse = false;
         for (var a in localStorage) {
           if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
-            alert("ramdomizer:" + name.value + " and " + a)
             if ("randomizer:" + name.value == a) {
               isInUse = true;
+              alert("The list name " + name.value + " is already in use.");
             }
           }
-        }
-        
-        if (isInUse) {
-          alert("The list name " + name.value + " is already in use.");
         }
         
         if (!isNullOrEmpty(name.value) && isOk && !isInUse) {
