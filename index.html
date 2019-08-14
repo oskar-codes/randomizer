@@ -233,7 +233,20 @@
           }
         }
         
-        if (!isNullOrEmpty(name.value) && isOk) {
+        var isNotInUse = true;
+        for (var a in localStorage) {
+          if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
+            if ("ramdomizer:" + name.value == a) {
+              var isNotInUse = false;
+            }
+          }
+        }
+        
+        if (!isNotInUse) {
+          alert("The list name " + name.value + " is already in use.");
+        }
+        
+        if (!isNullOrEmpty(name.value) && isOk && isNotInUse) {
           try {
            localStorage.setItem("randomizer:" + name.value, items);
            list_items.innerHTML = `<div class="input-group mb-3">
