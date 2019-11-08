@@ -308,7 +308,13 @@
         var items = listItems.split(", ")
         var inputHtml = ""
         for (var i=0; i<items.length; i++) {
-          inputHtml += '<input value="'+ items[i] +'" class="form-control"></input>'
+          var index = i+1;
+          inputHtml += `<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Item`+ index +`</span>
+  </div>
+  <input value=`+ items[i] +` type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
+</div>)`
         }
         var listContainer = element.parentNode;
         listContainer.innerHTML = `
