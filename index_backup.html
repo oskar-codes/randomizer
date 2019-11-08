@@ -191,7 +191,7 @@
       
       function openCreate() {
         updateLists();
-        window.location.href = "https://oskar-codes.github.io/randomizer/#create";
+        window.location.href = window.location.href + "#create";
         library.style.display = "none";
         create.style.display = "block";
         create_tab.classList.add("current");
@@ -199,7 +199,7 @@
       }
       
       function openLibrary() {
-        window.location.href = "https://oskar-codes.github.io/randomizer/#library";
+        window.location.href = window.location.href + "#library";
         create.style.display = "none";
         library.style.display = "block";
         library_tab.classList.add("current");
