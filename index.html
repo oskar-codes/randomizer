@@ -340,7 +340,7 @@
         var listItems = [];
         var itemsHtml = element.parentNode.children[1].children;
         for (var i =0; i<itemsHtml.length; i++) {
-          listItems.push(itemsHtml.children[i].value)
+          listItems.push(itemsHtml[i].value)
         }
         localStorage.removeItem("randomizer:" + oldList);
         localStorage.setItem("randomizer:" + listName, listItems);
