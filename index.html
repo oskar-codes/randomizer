@@ -343,7 +343,7 @@
           listItems.push(itemsHtml[i].value)
         }
         localStorage.removeItem("randomizer:" + oldList);
-        localStorage.setItem("randomizer:" + listName, listItems);
+        localStorage.setItem("randomizer:" + listName, listItems.split(",");
         updateLists();
       }
       
