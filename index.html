@@ -314,7 +314,7 @@
     <span class="input-group-text" id="basic-addon1">Item`+ index +`</span>
   </div>
   <input value=`+ items[i] +` type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-</div>)`
+</div>`
         }
         var listContainer = element.parentNode;
         listContainer.innerHTML = `
@@ -325,9 +325,6 @@
             <input value="`+ listName +`" type="text" class="form-control" aria-label="List name" aria-describedby="basic-addon1">
           </div>
           <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">List items</span>
-            </div>
             `+ inputHtml +`
           </div>
           <button onclick="saveEditing(this, '`+ listName +`');" class="list-btn btn btn-success btn-sm"><i class="fas fa-save"></i></button>
