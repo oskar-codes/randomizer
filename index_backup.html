@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Randomizer</title>
+    
+    <!-- CSS -->
+    <style>
+      h1,h3 {
+        text-align: center;
+        padding: 6px;
+      }
+      h3 {
+        margin-top: 50px;
+      }
+      h1 {
+        font-size: 50px;
+        font-weight: bold;
+      }
+      .tab-icon {
+        font-size: 64px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .col {
+        padding: 3px;
+      }
+      .current {
+        border-bottom: 3px solid #007bff;
+        background-color: #eee;
+      }
+      a {
+        width: calc(100vw)/2
+      }
+      .main {
+        margin: 8px;
+        margin-top: 14px;
+      }
+      #create-container, #lists-container {
+        background-color: #eee;
+        border-radius: 10px;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        padding: 8px;
+        width: 95vw;
+      }
+      #list-items-container {
+        background-color: #fff;
+        border-radius: 10px;
+        margin: 3px;
+      }
+      @media only screen and (orientation: landscape) {
+        #create-container, #lists-container {
+          width: 65vw;
+        }
+      }
+      input {
+        margin: 10px;
+        font-size: 40px;
+      }
+      #create-actions {
+        width: fit-content;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+      .list {
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        background-color: #fff;
+      }
+      .list-btn {
+        font-size: 10px;
+        width: 80px;
+        height: 30px;
+        border-radius: 15px;
+      }
+      .delete-all {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+    </style>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-- FONTAWESOME -->
+    <script src="https://kit.fontawesome.com/cbebc4ac70.js"></script>
+  </head>
+  
+  <body>
+    <header>
+      <h1>Randomizer</h1>
+    </header>
+    
+    <!-- GLOBAL MODAL -->
+    <div class="modal fade" id="globalModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 id="globalModalHeader" class="modal-title">Modal title</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div id="globalModalBody" class="modal-body">
+            
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="container-fluid">
+      <div class="row">
+        <div onclick="openCreate();" id="create-tab" class="col current">
+          <a href="#create"><i class="tab-icon fas fa-plus-square"></i></a>
+        </div>
+        <div onclick="openLibrary();" id="library-tab" class="col">
+          <a href="#library"><i class="tab-icon fas fa-bars"></i></a>
+        </div>
+      </div>
+    </div>
+    
+    <main>
+      <div id="create">
+        <h3>New list</h3>
+        <div id="create-container">
+          <input id="list-name" class="form-control" placeholder="Enter the list's name"></input>
+          <div id="list-items-container">
+            <div class="input-group mb-3">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+              </div>
+            </div>
+          </div>
+          <div id="create-actions">
+            <button onclick="addItem()" class="btn btn-light btn-lg">Add item</button>
+            <button onclick="createList()" class="btn btn-primary btn-lg">Create list</button>
+          </div>
+        </div>
+      </div>
+      
+      <div style="display: none;" id="library">
+        <h3>Your lists</h3>
+        <div id="lists-container">
+          
+        </div>
+        <button onclick="deleteAll();" class="delete-all btn btn-danger">Delete all</button>
+      </div>
+    </main>
+    
+    <!-- SCRIPTS -->
+    <script>
+      var create = document.querySelector("#create");
+      var library = document.querySelector("#library");
+      
+      var create_tab = document.querySelector("#create-tab");
+      var library_tab = document.querySelector("#library-tab");
+      
+      var globalModalHeader = document.querySelector("#globalModalHeader");
+      var globalModalBody = document.querySelector("#globalModalBody");
+      
+      var list_items = document.getElementById("list-items-container");
+      
+      window.onhashchange = updateTab();
+      window.onload = updateTab();
+      body.onload = updateTab();
+        
+      function updateTab() {
+        updateLists();
+        var url = window.location.href;
+        if (url.includes("#create")) {
+          openCreate();  
+        } else if (url.includes("#library")) {
+          openLibrary();
+        } else {
+          openCreate();
+        }
+      }
+      
+      function openCreate() {
+        updateLists();
+        window.location.href = "https://oskar-codes.github.io/randomizer/#create";
+        library.style.display = "none";
+        create.style.display = "block";
+        create_tab.classList.add("current");
+        library_tab.classList.remove("current");
+      }
+      
+      function openLibrary() {
+        window.location.href = "https://oskar-codes.github.io/randomizer/#library";
+        create.style.display = "none";
+        library.style.display = "block";
+        library_tab.classList.add("current");
+        create_tab.classList.remove("current");
+        updateLists();
+      }
+      
+      function addItem() {
+        var cloned = document.getElementsByClassName("mb-3")[0].cloneNode(true);
+        cloned.children[0].value = "";
+        list_items.appendChild(cloned);
+      }
+      
+      function removeItem(elem) {
+        if (list_items.childElementCount > 2) {
+          var elem2 = elem.parentNode.parentNode
+          elem.parentNode.parentNode.parentNode.removeChild(elem2);
+        }
+      }
+      
+      function createList() {
+        var name = document.getElementById("list-name");
+        var items = $('input[name="item"]').map(function () {
+          return this.value;
+        }).get();
+        
+        var isOk = true;
+        for (var i=0; i<items.length; i++) {
+          if (isNullOrEmpty(items[i])) {
+            isOk = false;
+          }
+        }
+        
+        var isInUse = false;
+        for (var a in localStorage) {
+          if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
+            if ("randomizer:" + name.value == a) {
+              isInUse = true;
+              alert("The list name " + name.value + " is already in use.");
+            }
+          }
+        }
+        
+        if (!isNullOrEmpty(name.value) && isOk && !isInUse) {
+          try {
+           localStorage.setItem("randomizer:" + name.value, items);
+           list_items.innerHTML = `<div class="input-group mb-3">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+              </div>
+            </div>
+            <div class="input-group mb-3">
+              <input name="item" type="text" class="form-control" placeholder="Enter item name" aria-label="Enter item name" aria-describedby="basic-addon2">
+              <div class="input-group-append">
+                <button id="inputGroup-sizing-lg" onclick="removeItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+              </div>
+            </div>`
+           name.value = "";
+           alert("List successfully created!");
+          } catch (e) {
+            alert("An error occured: " + e);
+          }
+        }
+      }
+      
+      function removeList(listName) {
+        if (confirm("Are you sure you want to delete the list " + listName + "?")) {
+          listName = "randomizer:" + listName;
+          try {
+            localStorage.removeItem(listName);
+          } catch(e) {
+            alert("An error occured: " + e);
+          }
+          updateLists();
+        }
+      }
+      
+      function playList(listName, listItems) {
+        var newListItems = listItems.split(", ");
+        
+        var selected = newListItems[Math.floor(Math.random() * newListItems.length)];
+        var shuffled = shuffle(newListItems).toString();
+        
+        var converter = new showdown.Converter({noHeaderId: 'true', simplifiedAutoLink: 'true', strikethrough: 'true'});
+        
+        var nameHtml = converter.makeHtml(listName);
+        
+        var selectedHtml = converter.makeHtml(selected);
+        
+        var shuffledHtml = converter.makeHtml(shuffled);
+        
+        
+        globalModalHeader.innerHTML = "Results for <b>" + nameHtml + "</b>";
+        globalModalBody.innerHTML = `
+          <h6>Selected item:</h6>
+          <p>`+ selectedHtml +`</p>
+          <br>
+          <h6>Shuffled list:</h6>
+          <p>`+ shuffledHtml.replace(/,/g,", ") +`</p>`;
+        
+        $("#globalModal").modal();
+      }
+      
+      function editList(listName, listItems, element) {
+        var listContainer = element.parentNode;
+        listContainer.innerHTML = `
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">List name</span>
+            </div>
+            <input value="`+ listName +`" type="text" class="form-control" aria-label="List name" aria-describedby="basic-addon1">
+          </div>
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">List items</span>
+            </div>
+            <input value="`+ listItems.replace(/, /g,"/") +`" type="text" class="form-control" aria-label="List items" aria-describedby="basic-addon1">
+          </div>
+          <button onclick="saveEditing(this, '`+ listName +`');" class="list-btn btn btn-success btn-sm"><i class="fas fa-save"></i></button>
+          <button onclick="updateLists();" class="list-btn btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
+        `;
+      }
+      
+      function saveEditing(element, oldList) {
+        var listName = element.parentNode.children[0].children[1].value;
+        var listItems = element.parentNode.children[1].children[1].value;
+        localStorage.removeItem("randomizer:" + oldList);
+        localStorage.setItem("randomizer:" + listName, listItems.split("/"));
+        updateLists();
+      }
+      
+      function updateLists() {
+        var converter = new showdown.Converter({noHeaderId: 'true', simplifiedAutoLink: 'true', strikethrough: 'true'});
+        var createdOne = false;
+        var lists_container = document.querySelector("#lists-container");
+        lists_container.innerHTML = "";
+        for (var a in localStorage) {
+          if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
+            
+            var rawName = a.replace("randomizer:","");
+            var nameHtml = converter.makeHtml(rawName);
+            
+            var rawItems = localStorage[a].replace(/,/g,", ");
+            var itemsHtml = converter.makeHtml(rawItems);
+            
+            lists_container.innerHTML += `
+              <div class="list">
+                <h4>`+ nameHtml +`</h4>
+                <p>`+ itemsHtml +`</p>
+                <button onclick="editList('`+ rawName +`', '`+ rawItems +`', this);" class="list-btn btn btn-success btn-sm"><i class="fas fa-edit"></i></button>
+                <button onclick="playList('`+ rawName +`', '`+ rawItems +`');" class="list-btn btn btn-primary btn-sm"><i class="fas fa-play"></i></button>
+                <button onclick="removeList('`+ rawName +`');" class="list-btn btn btn-danger btn-sm"><i class="fas fa-trash-alt"></i></button>
+              </div>`;
+            createdOne = true;
+          }
+        }
+        if (!createdOne) {
+          lists_container.innerHTML += "<p>No lists</p>"
+        }
+      }
+      
+      function deleteAll() {
+        if (confirm("Delete all lists ?")) {
+          for (var a in localStorage) {
+            if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
+              localStorage.removeItem(a);
+            }
+          }
+          updateLists();
+        }
+      }
+      
+      function isNullOrEmpty(str) {
+        return !str || !str.trim();
+      }
+      
+      function shuffle(array) {
+        var m = array.length, t, i;
+
+        while (m) {
+
+          i = Math.floor(Math.random() * m--);
+
+          t = array[m];
+          array[m] = array[i];
+          array[i] = t;
+        }
+
+        return array;
+      }
+
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/showdown/1.9.0/showdown.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
