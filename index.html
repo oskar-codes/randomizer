@@ -344,12 +344,14 @@
             listItems.push(itemsHtml[i].children[1].value)
           }
         }
-        if (listItems.length>0) {
+        if (listItems.length==0) {
+          removeList(oldList);
+        } else if (isNullOrEmpty(listName)) {
+          removeList(oldList);
+        } else {
           localStorage.removeItem("randomizer:" + oldList);
           localStorage.setItem("randomizer:" + listName, listItems.join());
           updateLists();
-        } else {
-          removeList(oldList);
         }
       }
       
