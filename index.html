@@ -337,6 +337,7 @@
       
       function saveEditing(element, oldList) {
         var listName = element.parentNode.children[0].children[1].value;
+        alert(listName);
         var listItems = [];
         var itemsHtml = element.parentNode.children[1].children;
         for (var i =0; i<itemsHtml.length; i++) {
@@ -357,7 +358,9 @@
       
       function editRemoveItem(element) {
         var child = element.parentNode.parentNode;
-        element.parentNode.parentNode.parentNode.removeChild(child);
+        if (element.parentNode.parentNode.parentNode.childElementCount > 2) {
+          element.parentNode.parentNode.parentNode.removeChild(child);
+        }
       }
       
       function updateLists() {
