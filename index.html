@@ -337,7 +337,6 @@
       
       function saveEditing(element, oldList) {
         var listName = element.parentNode.children[0].children[1].value;
-        alert(listName);
         var listItems = [];
         var itemsHtml = element.parentNode.children[1].children;
         for (var i =0; i<itemsHtml.length; i++) {
@@ -345,7 +344,7 @@
             listItems.push(itemsHtml[i].children[1].value)
           }
         }
-        if (listItems.length==0) {
+        if (listItems.length == 0) {
           removeList(oldList);
         } else if (isNullOrEmpty(listName)) {
           removeList(oldList);
