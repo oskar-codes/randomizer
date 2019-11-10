@@ -330,6 +330,7 @@
           <div class="input-group mb-3">
             `+ inputHtml +`
           </div>
+          <button onclick="editAddItem(this)" class="btn btn-light">Add item</button>
           <button onclick="saveEditing(this, '`+ listName +`');" class="list-btn btn btn-success btn-sm"><i class="fas fa-save"></i></button>
           <button onclick="updateLists();" class="list-btn btn btn-danger btn-sm"><i class="fas fa-times"></i></button>
         `;
@@ -360,6 +361,20 @@
         if (element.parentNode.parentNode.parentNode.childElementCount > 2) {
           element.parentNode.parentNode.parentNode.removeChild(child);
         }
+      }
+      
+      function editAddItem(element) {
+        var container = element.parentNode.children[1];
+        var index = container.childElementCount + 2;
+        container.innerHTML += `<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Item `+ index +`</span>
+  </div>
+  <input value="" type="text" class="form-control" aria-label="Item" aria-describedby="basic-addon1">
+  <div class="input-group-append">
+    <button onclick="editRemoveItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
+  </div>
+</div>`
       }
       
       function updateLists() {
