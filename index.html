@@ -315,7 +315,7 @@
   </div>
   <input value="`+ items[i] +`" type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1">
   <div class="input-group-append">
-    <button class="btn btn-outline-secondary" type="button">Remove item</button>
+    <button onclick="editRemoveItem(this)" class="btn btn-outline-secondary" type="button">Remove item</button>
   </div>
 </div>`
         }
@@ -340,13 +340,18 @@
         var listItems = [];
         var itemsHtml = element.parentNode.children[1].children;
         for (var i =0; i<itemsHtml.length; i++) {
-          if (itemsHtml[i].children[1].value!="") {
+          if (!isNullOrEmpty(itemsHtml[i].children[1].value)) {
             listItems.push(itemsHtml[i].children[1].value)
           }
         }
         localStorage.removeItem("randomizer:" + oldList);
         localStorage.setItem("randomizer:" + listName, listItems.join());
         updateLists();
+      }
+      
+      function editRemoveItem(element) {
+        var child = element.parentNode.parentNode;
+        element.parentNode.parentNode.parentNode.removeChild(child);
       }
       
       function updateLists() {
