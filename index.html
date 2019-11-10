@@ -344,9 +344,13 @@
             listItems.push(itemsHtml[i].children[1].value)
           }
         }
-        localStorage.removeItem("randomizer:" + oldList);
-        localStorage.setItem("randomizer:" + listName, listItems.join());
-        updateLists();
+        if (listItems.length>0) {
+          localStorage.removeItem("randomizer:" + oldList);
+          localStorage.setItem("randomizer:" + listName, listItems.join());
+          updateLists();
+        } else {
+          removeList(oldList);
+        }
       }
       
       function editRemoveItem(element) {
