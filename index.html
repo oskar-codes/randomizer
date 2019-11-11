@@ -233,6 +233,10 @@
           }
         }
         
+        if (!isOk) {
+          alert("One or more items are empty.");
+        }
+        
         var isInUse = false;
         for (var a in localStorage) {
           if (localStorage.hasOwnProperty(a) && a.includes("randomizer:")) {
@@ -241,6 +245,10 @@
               alert("The list name " + name.value + " is already in use.");
             }
           }
+        }
+        
+        if (isNullOrEmpty(name.value) {
+          alert("Please enter a list name.");
         }
         
         if (!isNullOrEmpty(name.value) && isOk && !isInUse) {
@@ -359,7 +367,7 @@
             updateLists();
           }
         } else {
-          alert("Error: one or more items are empty.")
+          alert("One or more items are empty.")
         }
       }
       
