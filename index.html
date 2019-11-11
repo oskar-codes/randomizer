@@ -339,20 +339,27 @@
       function saveEditing(element, oldList) {
         var listName = element.parentNode.children[0].children[1].value;
         var listItems = [];
+        var isOk = true;
         var itemsHtml = element.parentNode.children[1].children;
         for (var i =0; i<itemsHtml.length; i++) {
           if (!isNullOrEmpty(itemsHtml[i].children[1].value)) {
             listItems.push(itemsHtml[i].children[1].value)
+          } else {
+            isOk = false;
           }
         }
-        if (listItems.length == 0) {
-          removeList(oldList);
-        } else if (isNullOrEmpty(listName)) {
-          removeList(oldList);
+        if (isOk) {
+          if (listItems.length == 0) {
+            removeList(oldList);
+          } else if (isNullOrEmpty(listName)) {
+            removeList(oldList);
+          } else {
+            localStorage.removeItem("randomizer:" + oldList);
+            localStorage.setItem("randomizer:" + listName, listItems.join());
+            updateLists();
+          }
         } else {
-          localStorage.removeItem("randomizer:" + oldList);
-          localStorage.setItem("randomizer:" + listName, listItems.join());
-          updateLists();
+          alert("Error: one or more items are empty.")
         }
       }
       
